@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Secure Electronic Commerce</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="styles/main-page.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="menu">
+        <ul>
+          <li>
+            <a href="home.html" class="logo"
+              ><img src="../resource/icons8-shop-64.png"
+            /></a>
+          </li>
+          <li><a href="home.html" class="navbar-item">Home</a></li>
+          <li><a href="catalog.html" class="navbar-item">Catalog</a></li>
+          <li><a href="login.html" class="login-btn">Login</a></li>
+        </ul>
+      </div>
+
+      <div class="content">
+        <div class="form-group">
+          <h1>Login</h1>
+          <!-- Perform GET request to server -->
+          <form action="../server/login.php" method="POST">
+            <div>
+              <input
+                type="text"
+                class="form-input"
+                name="username"
+                id="username"
+                placeholder="Username or Email address"
+                required
+              />
+            </div>
+            <input
+              type="password"
+              class="form-input"
+              name="password"
+              id="password"
+              placeholder="Password"
+              required
+            />
+            <button type="submit" onclick="hashPassword()">Login</button>
+            <div class="signup-link">
+              <p>
+                Don't have an account? Click <a href="register.html">here</a>!
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>
+          Practical assignment for Secure Electronic Commerce | s3844786 &
+          s3845837
+        </p>
+      </div>
+    </div>
+
+    <script src="js/sha256.js"></script>
+    <script type="text/javascript" src="js/script.js" async defer></script>
+  </body>
+</html>
