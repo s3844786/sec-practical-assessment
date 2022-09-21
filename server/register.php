@@ -7,10 +7,10 @@
     $username_input = $_POST['username'];
     $password_input = $_POST['password'];
     $email_input = $_POST['email'];
-    $phoneNumber_input = $_POST['phoneNumber'];
-    $accountType_input = $_POST['accountType'];
+    $phone_input = $_POST['phoneNumber'];
+    $account_input = $_POST['accountType'];
 
-    if(trim($username_input) != null && trim($password_input) != null && trim($email_input) != null && trim($phoneNumber_input) != null) {
+    if(trim($username_input) != null && trim($password_input) != null && trim($email_input) != null && trim($phone_input) != null) {
         $isDuplicateName = false;
         while(!feof($file)){
             $line = fgets($file);
@@ -25,7 +25,7 @@
         if($isDuplicateName == false){
             $file = fopen("../database/users.txt","a"); 
             //insert $user_input into the database.txt 
-            fwrite($file, $username_input.",".$password_input.",".$email_input.",".$phoneNumber_input.",".$accountType_input."\n");  
+            fwrite($file, $username_input.",".$password_input.",".$email_input.",".$phone_input.",".$account_input."\n");  
             //close the "$file" 
             fclose($file); 
             echo "Sucessfully registered user.";
