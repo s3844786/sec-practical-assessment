@@ -86,3 +86,34 @@ form {
   text-decoration: underline;
   color: black;
 }
+
+/* CATALOG PAGE */
+.item-container {
+  display: grid;
+  column-gap: 20px;
+  grid-template-columns: auto auto auto auto;
+  padding: 10px;
+}
+.card {
+  max-width: 400px;
+  margin: 50px;
+  text-align: center;
+  border: 1px black solid;
+}
+.price {
+  color: darkgrey;
+  padding: 10px;
+}
+.card button {
+  border: none;
+  outline: 0;
+  padding: 10px;
+  color: white;
+  background-color: dodgerblue;
+  cursor: pointer;
+  width: 100%;
+  font-size: small;
+}
+.card button:hover {
+  background-color: rgb(65, 160, 255);
+}
