@@ -94,14 +94,17 @@ form {
   grid-template-columns: auto auto auto auto;
   padding: 10px;
 }
+.price {
+  color: fuchsia;
+  padding: 10px;
+}
 .card {
   max-width: 400px;
   margin: 50px;
   text-align: center;
   border: 1px black solid;
 }
-.price {
-  color: darkgrey;
+.card img {
   padding: 10px;
 }
 .card button {
