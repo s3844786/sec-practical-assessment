@@ -117,6 +117,25 @@ form {
   width: 100%;
   font-size: small;
 }
-.card button:hover {
+.card button:hover,
+.checkout-btn {
   background-color: rgb(65, 160, 255);
+}
+
+/* CART PAGE */
+.content table,
+th,
+td {
+  padding: 5px;
+  width: 30%;
+  margin: auto;
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+.checkout-btn {
+  color: white;
+  width: 30%;
+  padding: 5px;
+  background-color: dodgerblue;
+  border-radius: 10px;
 }
