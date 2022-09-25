@@ -27,28 +27,29 @@
       <div class="content">
         <h1>Cart</h1>
         <br />
-        <table>
-          <tr>
-            <td>Item</td>
-            <td>Price</td>
-            <td>Quantity</td>
-            <td>Total</td>
-          </tr>
-          <tr>
-            <td>Product 1</td>
-            <td>$2</td>
-            <td>3</td>
-            <td>6</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>6</td>
-          </tr>
-        </table>
-        <br />
-        <button class="checkout-btn">Checkout</button>
+        <div id="checkout">
+          <table>
+            <tr>
+              <td>Item</td>
+              <td>Price</td>
+              <td>Quantity</td>
+              <td>Total</td>
+            </tr>
+            <tr>
+              <td>Product 1</td>
+              <td>$2</td>
+              <td>3</td>
+              <td>6</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>6</td>
+            </tr>
+          </table>
+          <br />
+        </div>
       </div>
 
       <div class="footer">
@@ -60,5 +61,10 @@
     </div>
 
     <script src="js/script.js" async defer></script>
+    <script
+      async
+      src="https://pay.google.com/gp/p/js/pay.js"
+      onload="onGooglePayLoaded()"
+    ></script>
   </body>
 </html>
