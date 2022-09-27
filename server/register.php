@@ -1,34 +1,55 @@
-<?php 
+<?php
+require_once('../database/config.php');
 
-    $file_content = "../database/users.txt";
-    $file = fopen($file_content,"r");
-    $lines = count(file($file_content));
+$db_user = "root";
+$db_pass = "";
+$db_name = "test";
 
-    $username_input = $_POST['username'];
-    $password_input = $_POST['password'];
-    $email_input = $_POST['email'];
-    $phone_input = $_POST['phoneNumber'];
-    $account_input = $_POST['accountType'];
+$db = new PDO('mysql:host=localhost;dbname=' . $db_name . '; charset=utf8', $db_user, $db_pass);
 
-    if(trim($username_input) != null && trim($password_input) != null && trim($email_input) != null && trim($phone_input) != null) {
-        $isDuplicateName = false;
-        while(!feof($file)){
-            $line = fgets($file);
-            
-            list($username, $password) = explode(',', $line);
-            if(trim($username) == $username_input){
-                echo 'Username already taken';
-                $isDuplicateName = true;
-                break;
+$username_input = $_POST['username'];
+$password_input = $_POST['password'];
+$email_input = $_POST['email'];
+$phone_input = $_POST['phoneNumber'];
+$account_input = $_POST['accountType'];
+
+try {
+    $sql = "SELECT * FROM users WHERE username = :username";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(array(':username' => $username_input));
+
+    $result = $stmt->fetchAll();
+
+    if (count($result) > 0) {
+        echo 'Username already exists';
+    } else {
+        try {
+            $sql = "SELECT * FROM users WHERE email = :email";
+            $stmt = $db->prepare($sql);
+            $stmt->execute(array(':email' => $email_input));
+
+            $result = $stmt->fetchAll();
+
+            if (count($result) > 0) {
+                echo 'Email already exists';
+            } else {
+                try {
+                    $sql = "INSERT INTO users (username, password, email, phone, role) VALUES(?,?,?,?,?)";
+                    $stmtinsert = $db->prepare($sql);
+                    $result = $stmtinsert->execute([$username_input, $password_input, $email_input, $phone_input, $account_input]);
+                    if ($result) {
+                        echo 'Success';
+                    } else {
+                        echo 'There was an error';
+                    }
+                } catch (Exception $e) {
+                    echo 'Caught exception: ', $e->getMessage();
+                }
             }
-        }
-        if($isDuplicateName == false){
-            $file = fopen("../database/users.txt","a"); 
-            //insert $user_input into the database.txt 
-            fwrite($file, $username_input.",".$password_input.",".$email_input.",".$phone_input.",".$account_input."\n");  
-            //close the "$file" 
-            fclose($file); 
-            echo "Sucessfully registered user.";
+        } catch (Exception $e) {
+            echo 'Caught exception: ', $e->getMessage();
         }
     }
-?>
+} catch (Exception $e) {
+    echo 'Caught exception: ', $e->getMessage();
+}
