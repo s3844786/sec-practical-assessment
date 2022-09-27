@@ -1,28 +1,24 @@
 <?php
-    print_r($_POST);
+require_once('../database/config.php');
 
-    $file_content = "../database/users.txt";
-    $file = fopen($file_content,"r");
-    $lines = count(file($file_content));
+$username_input = $_POST['username'];
+$password_input = $_POST['password'];
 
-    $username_input = $_POST['username'];
-    $password_input = $_POST['password'];
-
-    if(trim($username_input) != null && trim($password_input) != null) {
-        while(!feof($file)){
-            $line = fgets($file);
-            
-            // Issue here is that only looks at first line of user file and breaks
-            list($username, $password, $email, $phoneNumber) = explode(',', $line);
-            if((trim($username) == $username_input || trim($email) == $username_input) && trim($password) == $password_input){
-                echo 'Logged in';
-                break;
-            } else {
-                echo 'Invalid username or password';
-                break;
-            }
+if (trim($username_input) != null && trim($password_input) != null) {
+    try {
+        $sql = "SELECT * FROM users WHERE username=? AND password=? ";
+        $query = $db->prepare($sql);
+        $query->execute(array($username_input, $password_input));
+        $row = $query->rowCount();
+        $fetch = $query->fetch();
+        if ($row > 0) {
+            echo 'Success';
+        } else {
+            echo 'Invalid username or password';
         }
-        fclose($file);
+    } catch (Exception $e) {
+        echo 'Caught exception: ', $e->getMessage();
     }
-
-?>
+} else {
+    echo 'invalid input';
+}
