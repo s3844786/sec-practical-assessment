@@ -1,12 +1,6 @@
 <?php
 require_once('../database/config.php');
 
-$db_user = "root";
-$db_pass = "";
-$db_name = "test";
-
-$db = new PDO('mysql:host=localhost;dbname=' . $db_name . '; charset=utf8', $db_user, $db_pass);
-
 $username_input = $_POST['username'];
 $password_input = $_POST['password'];
 $email_input = $_POST['email'];
