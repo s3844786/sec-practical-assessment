@@ -6,13 +6,13 @@ $password_input = $_POST['password'];
 
 if (trim($username_input) != null && trim($password_input) != null) {
     try {
-        $sql = "SELECT * FROM users WHERE username=? AND password=? ";
+        $sql = "SELECT * FROM users WHERE username=? OR email=? AND password=? ";
         $query = $db->prepare($sql);
-        $query->execute(array($username_input, $password_input));
+        $query->execute(array($username_input, $username_input, $password_input));
         $row = $query->rowCount();
         $fetch = $query->fetch();
         if ($row > 0) {
-            echo 'Success';
+            echo 'Succesfully logged in';
         } else {
             echo 'Invalid username or password';
         }
@@ -20,5 +20,5 @@ if (trim($username_input) != null && trim($password_input) != null) {
         echo 'Caught exception: ', $e->getMessage();
     }
 } else {
-    echo 'invalid input';
+    echo 'Please enter username/email or password';
 }
