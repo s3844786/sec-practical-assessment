@@ -132,3 +132,8 @@ td {
   border-collapse: collapse;
   border: 1px solid black;
 }
+
+.error-message {
+  color: red;
+  padding: 10px;
+}
