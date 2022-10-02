@@ -127,13 +127,21 @@ form {
 th,
 td {
   padding: 5px;
-  width: 30%;
   margin: auto;
   border-collapse: collapse;
   border: 1px solid black;
 }
 
+.checkout-table {
+  width: 40%;
+}
+
 .error-message {
   color: red;
   padding: 10px;
+}
+
+/* ITEM PAGE */
+.item-table {
+  width: 50%;
 }

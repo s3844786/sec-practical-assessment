@@ -1,5 +1,8 @@
 <?php
 include('session.php');
+if (!isset($_SESSION['login'])) {
+    header('Location: ../client/home.html');
+}
 ?>
 
 <!DOCTYPE html>
@@ -19,16 +22,16 @@ include('session.php');
         <div class="menu">
             <ul>
                 <li>
-                    <a href="home.html" class="logo"><img src="../resource/icons8-shop-64.png" /></a>
+                    <a href="home.php" class="logo"><img src="../resource/icons8-shop-64.png" /></a>
                 </li>
-                <li><a href="../client/home.html" class="navbar-item">Home</a></li>
-                <li><a href="../client/catalog.html" class="navbar-item">Catalog</a></li>
-                <li><a href="../client/cart.html" class="navbar-item">Cart</a></li>
+                <li><a href="home.php" class="navbar-item">Home</a></li>
+                <li><a href="catalog.php" class="navbar-item">Catalog</a></li>
                 <li><a href="items.php" class="navbar-item">Items</a></li>
                 <li><a href="?signout" class="login-btn">Sign out</a></li>
                 <?php
                 if (isset($_GET['signout'])) {
                     unset($_SESSION['username']);
+                    unset($_SESSION['login']);
                     header("Location: ../client/home.html");
                 }
                 ?>

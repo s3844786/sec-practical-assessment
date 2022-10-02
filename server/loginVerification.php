@@ -6,11 +6,12 @@ $username_input = $_POST['username'];
 $password_input = $_POST['password'];
 
 $_SESSION['isAdmin'] = false;
+$_SESSION['login'] = false;
 $_SESSION['username'] = $username_input;
 
 if (trim($username_input) != null && trim($password_input) != null) {
     try {
-        $sql = "SELECT * FROM users WHERE username=? OR email=? AND password=? ";
+        $sql = "SELECT * FROM users WHERE (username=? OR email=?) AND password=? ";
         $query = $db->prepare($sql);
         $query->execute(array($username_input, $username_input, $password_input));
         $row = $query->rowCount();
@@ -29,6 +30,7 @@ if (trim($username_input) != null && trim($password_input) != null) {
                 echo 'admin';
                 $_SESSION['isAdmin'] = true;
             }
+            $_SESSION['login'] = true;
             header("Location: home.php");
         } else {
             // echo 'Invalid username or password';

@@ -23,7 +23,6 @@ include('session.php');
                 </li>
                 <li><a href="../client/home.html" class="navbar-item">Home</a></li>
                 <li><a href="../client/catalog.html" class="navbar-item">Catalog</a></li>
-                <li><a href="../client/cart.html" class="navbar-item">Cart</a></li>
                 <li><a href="../client/login.html" class="login-btn">Login</a></li>
             </ul>
         </div>
@@ -31,7 +30,7 @@ include('session.php');
         <div class="content">
             <div class="form-group">
                 <h1>Login</h1>
-                <form action="../server/loginVerification.php" method="POST">
+                <form action="loginVerification.php" method="POST">
                     <div>
                         <input type="text" class="form-input" name="username" id="username" placeholder="Username or Email address" required />
                     </div>
@@ -62,7 +61,7 @@ include('session.php');
     </div>
 
     <script src="js/sha256.js"></script>
-    <script type="text/javascript" src="js/script.js" async defer></script>
+    <script type="text/javascript" src="../client/js/script.js" async defer></script>
 </body>
 
 </html>
