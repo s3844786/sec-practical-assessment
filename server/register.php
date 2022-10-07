@@ -1,53 +1,73 @@
 <?php
-require_once('../database/config.php');
+include('session.php');
+?>
 
-$username_input = $_POST['username'];
-$password_input = $_POST['password'];
-$email_input = $_POST['email'];
-$phone_input = $_POST['phoneNumber'];
-$account_input = $_POST['accountType'];
+<!DOCTYPE html>
+<html>
 
-if (trim($username_input) != null && trim($password_input) != null && trim($email_input) != null && trim($phone_input) != null) {
-    try {
-        $sql = "SELECT * FROM users WHERE username = :username";
-        $stmt = $db->prepare($sql);
-        $stmt->execute(array(':username' => $username_input));
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Secure Electronic Commerce</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="../client/styles/main-page.css" />
+</head>
 
-        $result = $stmt->fetchAll();
+<body>
+    <div class="container">
+        <div class="menu">
+            <ul>
+                <li>
+                    <a href="home.html" class="logo"><img src="../resource/icons8-shop-64.png" /></a>
+                </li>
+                <li><a href="home.html" class="navbar-item">Home</a></li>
+                <li><a href="catalog.html" class="navbar-item">Catalog</a></li>
+                <li><a href="login.html" class="login-btn">Login</a></li>
+            </ul>
+        </div>
 
-        if (count($result) > 0) {
-            echo 'Username already exists';
-        } else {
-            try {
-                $sql = "SELECT * FROM users WHERE email = :email";
-                $stmt = $db->prepare($sql);
-                $stmt->execute(array(':email' => $email_input));
-
-                $result = $stmt->fetchAll();
-
-                if (count($result) > 0) {
-                    echo 'Email already exists';
-                } else {
-                    try {
-                        $sql = "INSERT INTO users (username, password, email, phone, role) VALUES(?,?,?,?,?)";
-                        $stmtinsert = $db->prepare($sql);
-                        $result = $stmtinsert->execute([$username_input, $password_input, $email_input, $phone_input, $account_input]);
-                        if ($result) {
-                            echo 'Success';
-                        } else {
-                            echo 'There was an error';
-                        }
-                    } catch (Exception $e) {
-                        echo 'Caught exception: ', $e->getMessage();
-                    }
+        <div class="content">
+            <div class="form-group">
+                <h1>Create new account</h1>
+                <form action="../server/registerVerification.php" method="POST">
+                    <div>
+                        <input type="text" class="form-input" name="username" id="username" placeholder="Username" required />
+                    </div>
+                    <input type="password" class="form-input" name="password" id="password" placeholder="Password" required />
+                    <input type="email" class="form-input" name="email" id="email" placeholder="Email" required />
+                    <input type="text" class="form-input" name="phoneNumber" id="phoneNumber" placeholder="Phone number" required />
+                    <select class="form-input" name="accountType">
+                        <option value="0">User</option>
+                        <option value="1">Admin</option>
+                    </select>
+                    <button type="submit" onclick="hashPassword()">
+                        Register account
+                    </button>
+                    <div class="signup-link">
+                        <p>Have an account? Click <a href="login.html">here</a>!</p>
+                    </div>
+                </form>
+                <?php
+                $error = $_SESSION['errorMessage'];
+                if ($error != '' && isset($error)) {
+                    echo '<p class=error-message>' . $error . '</p>';
+                    unset($_SESSION['errorMessage']);
                 }
-            } catch (Exception $e) {
-                echo 'Caught exception: ', $e->getMessage();
-            }
-        }
-    } catch (Exception $e) {
-        echo 'Caught exception: ', $e->getMessage();
-    }
-} else {
-    echo 'Cannot be empty';
-}
+                ?>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>
+                Practical assignment for Secure Electronic Commerce | s3844786 &
+                s3845837
+            </p>
+        </div>
+    </div>
+
+    <script src="js/sha256.js"></script>
+    <script type="text/javascript" src="js/script.js" async defer></script>
+</body>
+
+</html>
