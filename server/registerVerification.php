@@ -17,7 +17,8 @@ if (trim($username_input) != null && trim($password_input) != null && trim($emai
         $result = $stmt->fetchAll();
 
         if (count($result) > 0) {
-            echo 'Username already exists';
+            $_SESSION['errorMessage'] = 'Username already exists';
+            header("Location: register.php");
         } else {
             try {
                 $sql = "SELECT * FROM users WHERE email = :email";
@@ -27,7 +28,8 @@ if (trim($username_input) != null && trim($password_input) != null && trim($emai
                 $result = $stmt->fetchAll();
 
                 if (count($result) > 0) {
-                    echo 'Email already exists';
+                    $_SESSION['errorMessage'] = 'Email already exists';
+                    header("Location: register.php");
                 } else {
                     try {
                         $sql = "INSERT INTO users (username, password, email, phone, role) VALUES(?,?,?,?,?)";
