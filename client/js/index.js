@@ -38,8 +38,8 @@ const allowedCardAuthMethods = ["PAN_ONLY", "CRYPTOGRAM_3DS"];
 const tokenizationSpecification = {
   type: 'PAYMENT_GATEWAY',
   parameters: {
-    'gateway': 'example',
-    'gatewayMerchantId': 'exampleGatewayMerchantId'
+    'gateway': 'Practical-assessment',
+    'gatewayMerchantId': 'Practical-assessment'
   }
 };
 
@@ -123,6 +123,26 @@ function getGooglePaymentDataRequest() {
   return paymentDataRequest;
 }
 
+paymentDataRequest.transactionInfo = {
+  totalPriceStatus: 'FINAL',
+  totalPrice: '1.00',
+  currencyCode: USD,
+  countryCode: US
+};
+
+paymentDataRequest.merchantInfo = {
+  merchantName: 'Example Merchant',
+  merchantId: '12345678901234567890'
+};
+
+paymentsClient.loadPaymentData(paymentDataRequest) .then(function(paymentData){
+  // if using gateway tokenization, pass this token without modification
+  paymentToken = paymentData.paymentMethodData.tokenizationData.token;
+}).catch(function(err){
+  // show error in developer console for debugging
+  console.error(err);
+});
+
 /**
  * Return an active PaymentsClient or initialize
  *
@@ -140,6 +160,27 @@ function getGooglePaymentsClient() {
   }
   return paymentsClient;
 }
+
+const isReadyToPayRequest = Object.assign({}, baseRequest);
+isReadyToPayRequest.allowedPaymentMethods = [baseCardPaymentMethod];
+
+
+paymentsClient.isReadyToPay(isReadyToPayRequest)
+.then(function(response) {
+  if (response.result) {
+    // add a Google Pay payment button
+  }
+})
+.catch(function(err) {
+  // show error in developer console for debugging
+  console.error(err);
+});
+
+
+const button = paymentsClient.createButton(
+  {onClick: () => console.log('TODO: click handler')}
+);
+document.getElementById('container').appendChild(button);
 
 /**
  * Handles authorize payments callback intents.
@@ -208,6 +249,7 @@ function addGooglePayButton() {
  *
  * @see {@link https://developers.google.com/pay/api/web/reference/request-objects#TransactionInfo|TransactionInfo}
  * @returns {object} transaction info, suitable for use as transactionInfo property of PaymentDataRequest
+ * 
  */
 function getGoogleTransactionInfo() {
   return {
@@ -215,7 +257,7 @@ function getGoogleTransactionInfo() {
         {
           label: "Subtotal",
           type: "SUBTOTAL",
-          price: "1.00",
+          price: document.getElementById('price').value,
         },
       {
           label: "Tax",
