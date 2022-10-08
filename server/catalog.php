@@ -163,6 +163,23 @@ if (isset($_POST['add_to_cart'])) {
 
 
             ?>
+            
+                    
+            <br><br>
+            
+            <script src="../client/js/index.js" async defer></script>
+            <script async src="https://pay.google.com/gp/p/js/pay.js" onload="onGooglePayLoaded()"></script>
+
+            <button type="button" aria-label="Google Pay" class="gpay-card-info-container black long en">
+                <div class="gpay-card-info-animation-container black gpay-card-info-animation-container-fade-out">
+                    <div class="gpay-card-info-placeholder-container">
+                        <div class="gpay-card-info-animation-gpay-logo black"></div>
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" direction="ltr" height="36px" width="130px"></svg>
+                        </div><div class="gpay-card-info-animated-progress-bar-container">
+                        <div class="gpay-card-info-animated-progress-bar"><div class="gpay-card-info-animated-progress-bar-indicator"></div></div></div>
+                </div>
+                <iframe class="gpay-card-info-iframe gpay-card-info-iframe-fade-in" scrolling="no" src="https://pay.google.com/gp/p/generate_gpay_btn_img?buttonColor=black&amp;browserLocale=en&amp;buttonSizeMode=static&amp;enableGpayNewButtonAsset=false"></iframe>
+            </button>
 
             <div class="footer">
                 <p>
