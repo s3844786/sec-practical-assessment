@@ -1,5 +1,6 @@
 <?php
 include('session.php');
+include('rsa.php')
 ?>
 
 <!DOCTYPE html>
@@ -49,6 +50,37 @@ include('session.php');
                     unset($_SESSION['errorMessage']);
                 }
                 ?>
+                
+                <?php
+                if(isset($_POST['username']) == FALSE){
+                    header('Location: ../client/login.html');
+                }
+                
+                $entered_username = $_POST['username'];
+                
+                $ciphertextReceived = $_POST['password'];
+                
+                $privateKey = get_rsa_privatekey('private.key');
+                
+                $decrypted = rsa_decryption($ciphertextReceived, $privateKey);
+                
+                $myArr = explode("&", $decrypted);
+                
+                $hashOfUserPassword = $myArr[0];
+                $userTimestamp = $myArr[1];
+                $serverTimeStamp = time();
+                
+                if(abs($serverTimeStamp - $userTimestamp) >= 150) {
+                    echo("<p>Your session has expired</p>");
+                    exit();
+                }
+                
+                $entered_password = $hashOfUserPassword;
+    
+                ?>
+
+        
+
             </div>
         </div>
 
@@ -60,8 +92,11 @@ include('session.php');
         </div>
     </div>
 
+    
+
     <script src="js/sha256.js"></script>
     <script type="text/javascript" src="../client/js/script.js" async defer></script>
 </body>
 
 </html>
+       
