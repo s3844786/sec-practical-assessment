@@ -65,7 +65,7 @@
               <option value="0">User</option>
               <option value="1">Admin</option>
             </select>
-            <button type="submit" onclick="hashPassword()">
+            <button type="submit" onclick="DES_encryption()">
               Register account
             </button>
             <div class="signup-link">
@@ -83,7 +83,18 @@
       </div>
     </div>
 
-    <script src="js/sha256.js"></script>
-    <script type="text/javascript" src="js/script.js" async defer></script>
+    <script type="text/javascript" src="js/des.js"></script>
+    <script type="text/javascript">
+      function DES_encryption() {
+        
+        var message = document.getElementById("message").value;
+        var key =  src="server/public.key";
+
+        var encrypted = javascript_des_encryption(key, message);
+        document.getElementById("message").value = encrypted;	
+        return false;
+      }
+    </script>
+
   </body>
 </html>
