@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Secure Electronic Commerce</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="styles/main-page.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="menu">
+        <ul>
+          <li>
+            <a href="home.html" class="logo"
+              ><img src="../resource/icons8-shop-64.png"
+            /></a>
+          </li>
+          <li><a href="home.html" class="navbar-item">Home</a></li>
+          <li><a href="catalog.html" class="navbar-item">Catalog</a></li>
+          <li><a href="login.html" class="login-btn">Login</a></li>
+        </ul>
+      </div>
+
+      <div class="content">
+        <h1>Payment</h1>
+        
+        <br><br>
+
+        <p> To proceed with the payment please press the button below.</p>
+        <br>
+
+        <div id="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <script src="js/index.js"></script>
+                    <script async src="https://pay.google.com/gp/p/js/pay.js" onload="onGooglePayLoaded()"></script>
+                </div>
+            </div>
+        </div>
+
+      <div class="footer">
+
+        <p>
+          Practical assignment for Secure Electronic Commerce | s3844786 &
+          s3845837
+        </p>
+      </div>
+    </div>
+
+    <script src="js/script.js" async defer></script>
+  </body>
+</html>
